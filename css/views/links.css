@@ -1,0 +1,107 @@
+
+.link-form, .config-form .field {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-top: 1px solid #F5F5F5;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.link-form:first-child, .config-form .field:first-child {
+    padding-top: 0;
+    border-top: none;
+}
+
+.link-form:last-child, .config-form .field:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.field {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+}
+
+.author {
+  padding-top: 1.6rem;
+  font-size: 0.8em;
+  color: #888888;
+}
+
+.treat-me-right {
+    color: #F94457;
+}
+
+label {
+    box-sizing: border-box;
+    width: 15%;
+}
+
+.forms label {
+}
+
+input[type=text] {
+    box-sizing: border-box;
+    width: 85%;
+    margin: 0;
+}
+
+.tips li {
+    margin-bottom: 8px;
+}
+
+.tips li: last-child {
+    margin-bottom: none;
+}
+
+.sample-section .button {
+    width: auto;
+    box-sizing: border-box;
+    margin: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.button {
+}
+
+.button.save-link,
+.button.delete-link {
+  width: 100%;
+  margin: 0;
+}
+
+.messages.error {
+  color: #FA3A4D;
+}
+
+.try-url {
+  word-break: break-word;
+}
+
+.config-form .input-box {
+    width: 15%;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.config-form label {
+  font-size: 1rem;
+}
+
+.config-form .field {
+  display: table;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.label-heading {
+  color: #4D4D4D;
+  font-weight: bold;
+}
+
+.tip {
+  font-weight: normal;
+}

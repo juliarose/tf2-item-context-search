@@ -1,0 +1,417 @@
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Slabo+27px');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+html {
+    font-size: 14px;
+}
+
+body {
+    background-color: #E6E6E6;
+    font-size: 14px;
+    color: #555555;
+    line-height: 1.8em;
+    font-family: "Open Sans", Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref", sans-serif;
+}
+
+main {
+    position: relative;
+    padding: 2em 0;
+}
+
+a, a:visited {
+    color: #6B4FDB;
+}
+
+.active {
+  font-weight: bold;
+}
+
+/**************************************************/
+/* Headings
+/**************************************************/
+h1, h2, h3, h4, h5, h6 {
+    font-size: 1.6em;
+    font-weight: bold;
+    font-family: "Open Sans Condensed", sans-serif;
+    margin-bottom: 0.4em;
+    line-height: 1.8em;
+    color: #4D4D4D;
+}
+
+h1 {
+    font-size: 2.4em;
+}
+
+/**************************************************/
+/* Inputs
+/**************************************************/
+label {
+    font-weight: bold;
+    font-size: 11px;
+}
+
+input, select, textarea {
+    box-sizing: border-box;
+}
+
+input, select {
+    border: 1px solid #CCCCCC;
+    background-color: #F5F5F5;
+    padding: 0.5em 0.8em 0.5em 0.8em;
+    border-radius: 2px;
+    margin-right: 0.4em;FA3A4D
+    font-size: 0.85em;
+}
+
+input:disabled,
+select:disabled {
+    color: #566475;
+    background-color: #ADB1B8;
+}
+
+select {
+    min-width: 5em;
+    padding: 0.4em;
+}
+
+input[type=checkbox] {
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+input:focus {
+    outline: thin dotted;
+    outline-color: #4D4D4D;
+}
+
+input[type=date] {
+    position: relative;
+    width: 100%;
+    width: 9em;
+    height: 1.2em;
+    font-family: "Open Sans", Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref", sans-serif;
+}
+
+input[type=date].active {
+    border-color: #20A98A;
+    color: #119074;
+}
+
+input[type=date]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+}
+
+input[type=date]::-webkit-calendar-picker-indicator {
+    color: transparent;
+    cursor: pointer;
+    background: none;
+    z-index: 1;
+}
+
+input[type=date]:before {
+    content: '\00a0';
+    content: '\25BF';
+    background: none;
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    top: 20%;
+    right: 1em;
+}
+
+input[type=date]::-webkit-clear-button {
+    cursor: pointer;
+    padding-right: 0.3em;
+}
+
+label {
+    text-shadow: 0px 1px 1px #FAFAFA;
+}
+
+input[type=date]::-webkit-clear-button {
+    
+}
+
+.field {
+    margin-bottom: 4px;
+}
+
+.field.error input, .field.error select {
+    border-color: #FA3A4D;
+    color: #FA3A4D;
+}
+
+/**************************************************/
+/* Buttons
+/**************************************************/
+
+button,
+.button {
+    box-sizing: border-box;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 1px solid #CCCCCC;
+    color: #4D4D4D;
+    padding: 0.5em 1.2em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    line-height: 1.2em;
+    position: relative;
+    margin-right: 0.4em;
+    font-size: 0.85em;
+    cursor: pointer;
+    user-select: none;
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#f7f7f7+0,f0f0f0+100 */
+    background: #f7f7f7; /* Old browsers */
+    background: -moz-linear-gradient(top,  #f7f7f7 0%, #f0f0f0 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #f7f7f7 0%,#f0f0f0 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #f7f7f7 0%,#f0f0f0 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#f0f0f0',GradientType=0 ); /* IE6-9 */
+}
+
+button.red,
+.button.red {
+    color: #F5F5F5;
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#fa3a4d+0,ff5567+100 */
+    background: #fa3a4d; /* Old browsers */
+    background: -moz-linear-gradient(top,  #fa3a4d 0%, #ff5567 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #fa3a4d 0%,#ff5567 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #fa3a4d 0%,#ff5567 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fa3a4d', endColorstr='#ff5567',GradientType=0 ); /* IE6-9 */
+}
+
+button.red:disabled:hover,
+.button.red:hover {
+    background: #fa3a4d; /* Old browsers */
+    background: -moz-linear-gradient(top,  #fa3a4d 0%, #ff5567 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #fa3a4d 0%,#ff5567 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #fa3a4d 0%,#ff5567 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fa3a4d', endColorstr='#ff5567',GradientType=0 ); /* IE6-9 */
+}
+
+button:disabled,
+.button.disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+}
+
+
+button.submit-button,
+.button.submit-button {
+  color: #333333;
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#cccccc+0,c1c1c1+100 */
+  background: #cccccc; /* Old browsers */
+  background: -moz-linear-gradient(top,  #cccccc 0%, #c1c1c1 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #cccccc 0%,#c1c1c1 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #cccccc 0%,#c1c1c1 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cccccc', endColorstr='#c1c1c1',GradientType=0 ); /* IE6-9 */
+}
+
+button.submit-button:hover,
+.button.submit-button:hover {
+  background: #c1c1c1;
+}
+
+a.placeholder .button {
+    cursor: default;
+}
+
+a .button:hover {
+    border: 1px solid #1FA385;
+    background: #1FA385;
+}
+
+button:hover,
+.button:hover {
+    background: #f7f7f7;
+}
+
+/* for icons */
+.button i {
+    margin-right: 0.4em;
+}
+
+.large.button {
+    width: 100%;
+    padding: 0.6em 1.6em;
+}
+
+.large.button:hover {
+    background: #DBDBDB;
+}
+
+/**************************************************/
+/* Layout
+/**************************************************/
+main.unloaded {
+    visibility: hidden;
+}
+
+.grid-container {
+    max-width: 600px;
+    min-width: 400px;
+    padding: 0 1rem;
+    margin: 0 auto;
+}
+
+.grid-container:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.mini .grid-container {
+    max-width: 520px;
+    min-width: 520px;
+}
+
+.stretch {
+    width: 100%;
+    background-color: #1D1D1E;
+}
+
+.section {
+    margin-bottom: 1.6rem;
+}
+
+.section:last-child {
+    margin-bottom: 0;
+}
+
+.indent {
+    padding: 1em;
+}
+
+.header {
+    margin-top: 1.6em;
+}
+
+/**************************************************/
+/* Generic
+/**************************************************/
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.absolute-center {
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    width: 64px;
+    height: 64px;
+    margin-top: -32px;
+    margin-left: -32px;
+    text-align: center;
+}
+
+.hidden {
+    /* Something with this class should definitely appear hidden */
+    display: none !important;
+}
+
+.code {
+    font-family: monospace, monospace;
+    background-color: #CCCCCC;
+    padding: 4px;
+}
+
+/**************************************************/
+/* Dropdowns
+/**************************************************/
+.dropdown .button {
+    padding: 0.5em 2.2em 0.5em 1em;
+}
+
+.dropdown .button:after {
+    content: ' \25BF';
+    position: absolute;
+    top: 20%;
+    right: 1em;
+}
+
+.circle:before {
+    content: '\25CF ';
+    margin-right: 0.4em;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    display: inline-block;
+}
+
+.dropdown-content, .autocomplete-items {
+    position: absolute;
+    z-index: 1;
+    background-color: #FAFAFA;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-content {
+    right: 0.4em;
+}
+
+.dropdown-content a, .autocomplete-items div {
+    color: #292929;
+    padding: 8px 12px;
+    text-decoration: none;
+    display: block;
+    min-width: 160px;
+    border-bottom: 1px solid #DEDEDE;
+}
+
+.dropdown-content a:last-child, .autocomplete-items div:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover, .autocomplete-items div:hover {
+    background-color: #DEDEDE;
+}
+
+.dropdown-content a.none {
+    color: #999999;
+}
+
+/**************************************************/
+/* Autocomplete
+/**************************************************/
+.autocomplete {
+    position: relative;
+}
+
+.autocomplete input {
+    min-width: 240px;
+}
+
+.autocomplete-items {
+    top: 100%;
+    left: 0;
+    min-width: 240px;
+}
+
+.autocomplete-items div {
+    cursor: pointer;
+}
+
+.autocomplete-active {
+    background-color: #C4DAF5 !important;
+}
