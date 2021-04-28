@@ -441,7 +441,9 @@ export default function processItemName(name, options) {
         const subHash = processItemName(baseName, options);
         
         if (subHash) {
-            if (outputMatch || processRegExp(/^Chemistry Set$/).test(targetOutputItemMatch[1])) {
+            const isChemistrySet = processRegExp(/^Chemistry Set$/).test(targetOutputItemMatch[1]);
+            
+            if (outputMatch || isChemistrySet) {
                 // take from original hash
                 hash.output_quality = hash.quality || 6;
                 hash.output_quality_name = hash.quality_name || 'Unique';
@@ -460,6 +462,9 @@ export default function processItemName(name, options) {
                     if (killstreakTierDefindexMap[hash.killstreak_tier]) {
                         hash.output_defindex = killstreakTierDefindexMap[hash.killstreak_tier];
                     }
+                 }else if (isChemistrySet && hash.quality === 14) {
+                    // collector's chemistry set
+                    hash.defindex = 20006;
                 }
                 
                 // bring it up
