@@ -6,7 +6,7 @@ TF2 Item Context Search is a browser extension for displaying right-click contex
 
 To use this extension, please install it from the [Chrome Web Store](https://chrome.google.com/webstore) (coming soon).
 
-#### Default Context Links
+## Default Context Links
 
 -   Search classifieds on [backpack.tf classifieds](https://backpack.tf/classifieds).
 -   View Unusual prices for that item (if the item is an Unusual) on [backpack.tf](https://backpack.tf/unusuals).
