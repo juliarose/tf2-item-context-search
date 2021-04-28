@@ -1,28 +1,5 @@
-
-function getCaretPosition(inputEl) {
-    if (document.selection) {
-        // Set focus on the element
-        inputEl.focus();
-
-        // To get cursor position, get empty selection range
-        const selection = document.selection.createRange();
-
-        // Move selection start to 0 position
-        selection.moveStart('character', -inputEl.value.length);
-
-        // The caret position is selection length
-        return selection.text.length;
-    } else if (inputEl.selectionStart || inputEl.selectionStart === '0') {
-        // firefox
-        return (
-            inputEl.selectionDirection === 'backward' ?
-                inputEl.selectionStart :
-                inputEl.selectionEnd
-        );
-    }
-    
-    return 0;
-}
+import createCompoundIndex from './createCompoundIndex.js';
+import getCaretPosition from './getCaretPosition.js';
 
 /**
  * Creates an autocomplete field with the given values.
@@ -32,14 +9,6 @@ function getCaretPosition(inputEl) {
  * @returns {undefined}
  */
 export default function addAutocompleteToField(inputEl, values, submitFn) {
-    // adapted from https://www.w3schools.com/howto/howto_js_autocomplete.asp
-    let currentFocus;
-    let str = '';
-    let curIndex = 0;
-    let keyCode;
-    let prevValue;
-    let prevCompleted;
-    
     // updates the active item
     function updateActiveItem(itemsList) {
         if (!itemsList) {
@@ -87,55 +56,21 @@ export default function addAutocompleteToField(inputEl, values, submitFn) {
             });
     }
     
-    function addToCompound(term, offset = ' ', slice) {
-        if (slice !== undefined) {
-            // tkae off difference
-            str = str.slice(0, slice).trim();
-            curIndex = str.length;
-        }
-        
-        if (curIndex > 0) {
-            let lastChar = str[str.length - 1];
-            
-            if (lastChar !== ' ') {
-                str += ' ';
-                curIndex += 1;
-            }
-        }
-        
-        str += term;
-        curIndex += term.length;
-        
-        if (curIndex > 0 && offset) {
-            str += offset;
-            curIndex += offset.length;
-        }
-        
-        return str;
-    }
-
-    function invalidateIndex(pos) {
-        str = '';
-        curIndex = 0;
-    }
-    
     function updateDropdown(e) {
         // take
         const inputEl = e.currentTarget;
         const { id } = inputEl;
         const pos = getCaretPosition(inputEl);
         
-        if (e.type === 'input' && pos < curIndex) {
-            invalidateIndex(pos);
+        if (e.type === 'input' && pos < compounds.getIndex()) {
+            compounds.invalidate();
         }
         
-        if (prevValue) {
+        if (compounds.previousValue) {
+            // space
             if (keyCode === 32) {
-                inputEl.value = addToCompound(prevValue, ' ');
-                prevCompleted = prevValue;
+                inputEl.value = compounds.update(' ');
             }
-            
-            prevValue = null;
         }
         
         const inputValue = inputEl.value;
@@ -162,10 +97,11 @@ export default function addAutocompleteToField(inputEl, values, submitFn) {
         itemsContainerEl.setAttribute('id', `${id}autocomplete-list`);
         itemsContainerEl.setAttribute('class', 'autocomplete-items');
         
-        const currentTerm = uppercaseInputValue.slice(curIndex).trim();
-        const isTrimmed = currentTerm !== uppercaseInputValue.slice(curIndex);
+        const currentIndex = compounds.getIndex();
+        const currentTerm = uppercaseInputValue.slice(currentIndex).trim();
+        const isTrimmed = currentTerm !== uppercaseInputValue.slice(currentIndex);
+        const slice = currentIndex;
         const terms = [];
-        let slice = curIndex;
         
         if (currentTerm.length > 0) {
             terms.push({
@@ -174,14 +110,9 @@ export default function addAutocompleteToField(inputEl, values, submitFn) {
             });
         }
         
-        if (prevCompleted) {
-            let prefix = prevCompleted.toUpperCase();
-            
-            if (currentTerm.length > 0) {
-                prefix += ' ';
-            }
-            
-            const value = prefix + currentTerm;
+        if (compounds.previousCompletedValue && currentTerm.length > 0) {
+            const prefix = compounds.previousCompletedValue.toUpperCase();
+            const value = [prefix, currentTerm].join(' ');
             
             terms.push({
                 value,
@@ -236,9 +167,9 @@ export default function addAutocompleteToField(inputEl, values, submitFn) {
                 
                 if (value.toUpperCase() === testInputValue) {
                     if (isCompleted) {
-                        inputEl.value = addToCompound(value, '');
+                        inputEl.value = compounds.update('', null, value);
                     } else {
-                        prevValue = value;
+                        compounds.previousValue = value;
                     }
                 }
                 
@@ -247,10 +178,8 @@ export default function addAutocompleteToField(inputEl, values, submitFn) {
                 
                 // execute a function when the item is clicked
                 itemEl.addEventListener('click', (e) => {
-                    prevCompleted = value;
-                    prevValue = null;
                     // change the input's value to the value for this element
-                    inputEl.value = addToCompound(value, ' ', term.slice);
+                    inputEl.value = compounds.update(' ', term.slice, value);
                     
                     // close the list of autocompleted values
                     // (or any other open lists of autocompleted values
@@ -274,6 +203,13 @@ export default function addAutocompleteToField(inputEl, values, submitFn) {
             autocompleteEl.appendChild(itemsContainerEl);
         }
     }
+    
+    const compounds = createCompoundIndex();
+    // adapted from https://www.w3schools.com/howto/howto_js_autocomplete.asp
+    // the currently focused auto-complete term in the dropdown
+    let currentFocus;
+    // current key code
+    let keyCode;
     
     inputEl.addEventListener('change', (e) => {
         const inputEl = e.currentTarget;
