@@ -14,7 +14,7 @@ export default function createSchemaSearchIndex(recordIndex) {
                 const key = record[keyColumn];
                 
                 if (key !== undefined) {
-                    index[key] = record[valueColumn];
+                    index[key] = record;
                 }
                 
                 return index;
@@ -44,16 +44,10 @@ export default function createSchemaSearchIndex(recordIndex) {
             // key/value index key
             const key = [
                 table,
-                keyColumn,
-                valueColumn
+                keyColumn
             ].join(':');
             
             if (ignoreCase && typeof value === 'string') {
-                const key = [
-                    table,
-                    keyColumn
-                ].join(':');
-                
                 if (keyIndex[key] === undefined) {
                     // generate index for case-insensitive keys
                     keyIndex[key] = indexKeys(recordIndex[table], keyColumn);
@@ -72,7 +66,10 @@ export default function createSchemaSearchIndex(recordIndex) {
             }
             
             // return the value
-            return index[key][value];
+            return (
+                index[key][value] &&
+                index[key][value][valueColumn]
+            );
         },
         // gets the case-sensitive key for a given value
         // e.g. 'purple energy' will return 'Purple Energy'
