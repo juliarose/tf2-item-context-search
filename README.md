@@ -6,14 +6,17 @@ TF2 Item Context Search is a browser extension for displaying right-click contex
 
 To use this extension, please install it from the [Chrome Web Store](https://chrome.google.com/webstore) (coming soon).
 
-## Default Context Links
+## Features
 
--   Search classifieds on [backpack.tf classifieds](https://backpack.tf/classifieds).
--   View Unusual prices for that item (if the item is an Unusual) on [backpack.tf](https://backpack.tf/unusuals).
--   View Unusual prices for that effect (if the item is an Unusual) on [backpack.tf](https://backpack.tf/effects).
--   View stats for item on [backpack.tf classifieds](https://backpack.tf/stats).
--   View listings on the [Steam Community Market](https://steamcommunity.com/market).
--   View item on [marketplace.tf](https://marketplace.tf).
+-   Provides right-click context menus for the following resources:
+    -   Search classifieds on [backpack.tf classifieds](https://backpack.tf/classifieds).
+    -   If the item is Unusual, view Unusual prices for item on [backpack.tf](https://backpack.tf/unusuals).
+    -   If the item is Unusual, view Unusual prices for effect on [backpack.tf](https://backpack.tf/effects).
+    -   View stats for item on [backpack.tf classifieds](https://backpack.tf/stats).
+    -   View listings on the [Steam Community Market](https://steamcommunity.com/market).
+    -   View item on [marketplace.tf](https://marketplace.tf).
+
+-   Clicking on the extension's icon reveals a search bar for searching for items by user input.
 
 ## Contributing
 
