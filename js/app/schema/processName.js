@@ -463,7 +463,7 @@ export default function processItemName(name, options) {
                 }
                 
                 // bring it up
-                if (outputHash.target_defindex !== undefined) {
+                if (subHash.target_defindex !== undefined) {
                     hash.target_defindex = subHash.target_defindex;
                     hash.target_item_name = subHash.target_item_name;
                 }
