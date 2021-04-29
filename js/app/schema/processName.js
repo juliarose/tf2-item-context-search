@@ -462,9 +462,44 @@ export default function processItemName(name, options) {
                     if (killstreakTierDefindexMap[hash.killstreak_tier]) {
                         hash.output_defindex = killstreakTierDefindexMap[hash.killstreak_tier];
                     }
-                 }else if (isChemistrySet && hash.quality === 14) {
-                    // collector's chemistry set
-                    hash.defindex = 20006;
+                } else if (isChemistrySet) {
+                    if (hash.quality === 14) {
+                        // collector's chemistry set
+                        if (/^Festive /.test(hash.output_item_name)) {
+                            // collector's festive
+                            hash.defindex = 20007;
+                        } else {
+                            hash.defindex = 20006;
+                        }
+                    } else if (hash.output_item_name === 'Strangifier') {
+                        if (hash.series_number === undefined) {
+                            const targetItemNameSeriesNumberMap = {
+                                'Stockbroker\'s Scarf': 2,
+                                'Foppish Physician': 2,
+                                'Professor Speks': 2,
+                                'Outback Intellectual': 2,
+                                'Sandvich Safe': 2,
+                                'Blood Banker': 2,
+                                'Boston Boom-Bringer': 2,
+                                'Dark Age Defender': 2,
+                                'Lord Cockswain\'s Novelty Mutton Chops and Pipe': 2
+                            };
+                            
+                            if (targetItemNameSeriesNumberMap[hash.target_item_name] !== undefined) {
+                                hash.series_number = targetItemNameSeriesNumberMap[hash.target_item_name];
+                            } else {
+                                // otherwise usually series 1
+                                hash.series_number = 1;
+                            }
+                        }
+                        
+                        if (hash.series_number === 2) {
+                            hash.defindex = 20005;
+                        } else {
+                            // series 1 chemistry set
+                            hash.defindex = 20000;
+                        }
+                    }
                 }
                 
                 // bring it up
@@ -577,6 +612,27 @@ export default function processItemName(name, options) {
         };
         
         hash.defindex = getMapValue(itemNameDefindexMap, name);
+    }
+    
+    if (hash.defindex === undefined && hash.quality !== 1) {
+        // for promo items, the defindex is different for the genuine versions,
+        // which will otherwise be selected when the quality is genuine (1) since the defindex is higher
+        // otherwise if the quality is not genuine, we want to pick from these defindex values
+        const promoItemNameDefindexMap = {
+            'Red-Tape Recorder': 810,
+            'Huo-Long Heater': 811,
+            'Flying Guillotine': 812,
+            'Neon Annihilator': 813,
+            'Triad Trinket': 814,
+            'Champ Stamp': 815,
+            'Marxman': 816,
+            'Human Cannonball': 817,
+            'Arkham Cowl': 30720,
+            'Firefly': 30721,
+            'Fear Monger': 30724
+        };
+        
+        hash.defindex = getMapValue(promoItemNameDefindexMap, name);
     }
     
     if (hash.defindex === undefined) {
