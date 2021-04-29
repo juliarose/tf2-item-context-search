@@ -450,6 +450,12 @@ export default function processItemName(name, options) {
                 hash.output_defindex = subHash.defindex;
                 hash.output_item_name = subHash.item_name;
                 
+                // bring it up
+                if (subHash.target_defindex !== undefined) {
+                    hash.target_defindex = subHash.target_defindex;
+                    hash.target_item_name = subHash.target_item_name;
+                }
+                
                 if (hash.output_item_name === 'Kit' && hash.killstreak_tier !== undefined) {
                     // defindex values based on killstreak tier
                     const killstreakTierDefindexMap = {
@@ -500,12 +506,6 @@ export default function processItemName(name, options) {
                             hash.defindex = 20000;
                         }
                     }
-                }
-                
-                // bring it up
-                if (subHash.target_defindex !== undefined) {
-                    hash.target_defindex = subHash.target_defindex;
-                    hash.target_item_name = subHash.target_item_name;
                 }
             } else {
                 // has a target
