@@ -164,7 +164,7 @@ export default function createItemProcessors(recordIndex) {
             .filter(Boolean)
             // sort from longest to shortest
             .sort((a, b) => b.length - a.length)
-            // escape with regular expression
+            // escape string for regular expression
             .map(escapeRegExp)
             // join with pipe
             .join('|');
@@ -186,7 +186,7 @@ export default function createItemProcessors(recordIndex) {
         // putting more used qualities towards the front and using ^ can improve efficiency
         // more optimized query for quality names
         // 180.061ms vs. 259.384ms in testing (1.5x faster)
-        qualities: /^(Unusual|Vintage|Genuine|Haunted|Collector's|Decorated\ Weapon|Normal|Self\-Made|Community|Completed|Customized|Valve) /
+        qualities: /^(Unusual|Vintage|Genuine|Haunted|Collector's|Decorated\ Weapon|Normal|Unique|Self\-Made|Community|Completed|Customized|Valve) /
     });
     
     return {

@@ -1,14 +1,20 @@
 import createCompoundIndex from './createCompoundIndex.js';
 import getCaretPosition from './getCaretPosition.js';
-
+/**
+ * A number, or a string containing a number.
+ * @typedef {object} SearchTerm
+ * @property {string} value - Value for search term.
+ * @property {string} index - Index for search term.
+ */
+ 
 /**
  * Creates an autocomplete field with the given values.
  * @param {HTMLElement} inputEl - The input element for the complete.
- * @param {string[]} values - Array of values to be used as search terms.
+ * @param {SearchTerm[]} terms - Array of search terms to be used.
  * @param {function} submitFn - The function to call when submitting the search.
  * @returns {undefined}
  */
-export default function addAutocompleteToField(inputEl, values, submitFn) {
+export default function addAutocompleteToField(inputEl, terms, submitFn) {
     // updates the active item
     function updateActiveItem(itemsList) {
         if (!itemsList) {
@@ -62,11 +68,11 @@ export default function addAutocompleteToField(inputEl, values, submitFn) {
         const { id } = inputEl;
         const pos = getCaretPosition(inputEl);
         
-        if (e.type === 'input' && pos < compounds.getIndex()) {
+        if (e.type === 'input' && pos < compounds.getStrIndex()) {
             compounds.invalidate();
         }
         
-        if (compounds.previousValue) {
+        if (compounds.previousTerm) {
             // space
             if (keyCode === 32) {
                 inputEl.value = compounds.update(' ');
@@ -97,24 +103,24 @@ export default function addAutocompleteToField(inputEl, values, submitFn) {
         itemsContainerEl.setAttribute('id', `${id}autocomplete-list`);
         itemsContainerEl.setAttribute('class', 'autocomplete-items');
         
-        const currentIndex = compounds.getIndex();
+        const currentIndex = compounds.getStrIndex();
         const currentTerm = uppercaseInputValue.slice(currentIndex).trim();
         const isTrimmed = currentTerm !== uppercaseInputValue.slice(currentIndex);
         const slice = currentIndex;
-        const terms = [];
+        const searchQueries = [];
         
         if (currentTerm.length > 0) {
-            terms.push({
+            searchQueries.push({
                 value: currentTerm,
                 slice
             });
         }
         
-        if (compounds.previousCompletedValue && currentTerm.length > 0) {
-            const prefix = compounds.previousCompletedValue.toUpperCase();
+        if (compounds.previousCompletedTerm && currentTerm.length > 0) {
+            const prefix = compounds.previousCompletedTerm.value.toUpperCase();
             const value = [prefix, currentTerm].join(' ');
             
-            terms.push({
+            searchQueries.push({
                 value,
                 slice: Math.max(0, slice - (prefix.length + 1))
             });
@@ -125,18 +131,24 @@ export default function addAutocompleteToField(inputEl, values, submitFn) {
         }
         
         // loop through values
-        values
+        terms
             // filter values that match the search term
-            .map((value) => {
+            .map((term) => {
+                // we already have a term using this index within the compound
+                if (compounds.hasIndex(term.index)) {
+                    return;
+                }
+                
+                const { value } = term;
                 const uppercaseValue = value.toUpperCase();
                 let matched;
                 let index;
                 
-                const isMatch = terms.some((term, i) => {
-                    matched = term;
+                const isMatch = searchQueries.some((searchQuery, i) => {
+                    matched = searchQuery;
                     index = i;
                     
-                    return uppercaseValue.indexOf(term.value) === 0;
+                    return uppercaseValue.indexOf(searchQuery.value) === 0;
                 });
                 
                 if (!isMatch) {
@@ -144,9 +156,9 @@ export default function addAutocompleteToField(inputEl, values, submitFn) {
                 }
                 
                 return {
-                    value,
+                    term,
                     index,
-                    term: matched
+                    matched
                 };
             })
             .filter(Boolean)
@@ -156,9 +168,10 @@ export default function addAutocompleteToField(inputEl, values, submitFn) {
             // take first 10 results
             .slice(0, 10)
             // map each matching value to an element
-            .map(({ value, term }) => {
+            .map(({ matched, term }) => {
+                const { value } = term;
                 const itemEl = document.createElement('div');
-                const testInputValue = uppercaseInputValue.slice(term.slice).trim();
+                const testInputValue = uppercaseInputValue.slice(matched.slice).trim();
                 const matchingIndex = value.toUpperCase().indexOf(testInputValue);
                 const startStr = value.substr(0, matchingIndex);
                 const matchingStr = value.substr(matchingIndex, inputValue.length);
@@ -167,9 +180,9 @@ export default function addAutocompleteToField(inputEl, values, submitFn) {
                 
                 if (value.toUpperCase() === testInputValue) {
                     if (isCompleted) {
-                        inputEl.value = compounds.update('', null, value);
+                        inputEl.value = compounds.update('', null, term);
                     } else {
-                        compounds.previousValue = value;
+                        compounds.previousTerm = term;
                     }
                 }
                 
@@ -179,7 +192,7 @@ export default function addAutocompleteToField(inputEl, values, submitFn) {
                 // execute a function when the item is clicked
                 itemEl.addEventListener('click', (e) => {
                     // change the input's value to the value for this element
-                    inputEl.value = compounds.update(' ', term.slice, value);
+                    inputEl.value = compounds.update(' ', matched.slice, term);
                     
                     // close the list of autocompleted values
                     // (or any other open lists of autocompleted values

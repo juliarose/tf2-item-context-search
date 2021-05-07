@@ -691,7 +691,8 @@ export default function processItemName(name, options) {
         hash.output_defindex,
         hash.output_quality,
         hash.target_defindex,
-        hash.crate_number
+        hash.crate_number,
+        hash.particle
     ].filter(Boolean).join('-');
     
     if (priceindex.length > 0) {

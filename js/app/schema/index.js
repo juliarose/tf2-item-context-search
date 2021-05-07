@@ -15,8 +15,21 @@ export default async function createSchema(options = {}) {
         getNames() {
             // map function for specific key from array of records
             const getValueForKey = (key) => (record) => record[key];
+            // include an index with value
+            const asIndex = (index) => (value) => {
+                return {
+                    index,
+                    value
+                };
+            };
+            const craftableNames = [
+                'Uncraftable',
+                'Non-Craftable'
+            ];
             const qualityNames = recordIndex.qualities
                 .map(getValueForKey('name'))
+                // we have a separate index for strange
+                .filter(name => name !== 'Strange')
                 .sort();
             const killstreakTierNames = recordIndex.killstreak_tiers
                 .map(getValueForKey('name'))
@@ -39,16 +52,18 @@ export default async function createSchema(options = {}) {
                 .map(getValueForKey('item_name'))
                 .sort();
             
-            return uniq([
+            return [
                 // the order matters here
                 // in a search "Australium" is more important than "Australium Gold"
                 // and will appear first
-                'Australium',
-                ...qualityNames,
-                ...killstreakTierNames,
-                ...particleNames,
-                ...itemNames
-            ]);
+                asIndex('australium')('Australium'),
+                asIndex('strange')('Strange'),
+                ...craftableNames.map(asIndex('craftable')),
+                ...qualityNames.map(asIndex('qualities')),
+                ...killstreakTierNames.map(asIndex('killstreak_tiers')),
+                ...particleNames.map(asIndex('particles')),
+                ...uniq(itemNames).map(asIndex(null))
+            ];
         },
         // processes name
         // options can include ignoreCase to ignore the case when processing
