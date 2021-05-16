@@ -129,7 +129,7 @@ export default function processItemName(name, options) {
     }
     
     // australium missing "Strange" in name
-    if (name.includes('Australium ') && !name.includes('Strange ') && name !== 'Australium Gold') {
+    if (name.includes('Australium ') && !name.includes('Strange ') && !name.includes('Australium Gold')) {
         // prefix it with "Strange"
         name = `Strange ${name}`;
     } else if (name.includes(' Strange ')) {
@@ -287,7 +287,7 @@ export default function processItemName(name, options) {
         hash.quality = 11;
     }
     
-    if (reBooleans.australium.test(name)) {
+    if (reBooleans.australium.test(name) && !processRegExp(/^Australium Gold$/).test(name)) {
         name = name.replace(reBooleans.australium, '');
         hash.australium = true;
     }

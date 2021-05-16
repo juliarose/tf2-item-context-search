@@ -12,12 +12,13 @@ import createLinkContextManager from '../app/state/links.contexts.js';
     const schema = await createSchema();
     const links = await getLinks();
     const contextGenerator = createItemSearchContextGenerator(schema);
-    // create object for state of contexts
-    const contextState = createContextStateManager({
+    const rootContext = {
         title: 'Search for item...',
         id: getContextId(),
         ...createBaseContext()
-    });
+    };
+    // create object for state of contexts
+    const contextState = createContextStateManager(rootContext);
     // the default links are more flexible and behave a little differently
     const defaultLinkState = createLinkContextManager(defaultLinks, {
         contextState,
@@ -78,14 +79,17 @@ import createLinkContextManager from '../app/state/links.contexts.js';
         }
     });
     
+    // this will force the proper indexes to be built for parsing names
     schema.processName('Purple Energy Wet Works', { ignoreCase: true });
     
     // initialize contexts
     await Promise.all([
+        // add contexts for links
         ...[
             defaultLinkState,
             linkState
         ].map(state => state.addToContext()),
+        // add bottom links
         ...[
             {
                 id: getContextId('configure-seperator'),

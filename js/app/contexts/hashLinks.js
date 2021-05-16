@@ -13,6 +13,7 @@ export function createBaseContext() {
     };
 }
 
+// creates a function for building contexts for links
 export function createItemSearchContextGenerator(schema) {
     function createContextClickHandler(generator) {
         return function onContextClick(info) {
@@ -29,6 +30,7 @@ export function createItemSearchContextGenerator(schema) {
         }
     }
     
+    // creates context menu item
     return function createContextProps({ id, title, visible, generator }) {
         const baseContext = createBaseContext();
         
