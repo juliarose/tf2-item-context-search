@@ -25,10 +25,14 @@ export default function createLinkContextManager(links, { contextIdPrefix, asCon
         contextState.add(context);
     }
     
-    function remove(id) {
-        const index = links.findIndex((link) => {
+    function findIndexOf(id) {
+        return links.findIndex((link) => {
             return link.id === id;
         });
+    }
+    
+    function remove(id) {
+        const index = findIndexOf(id);
         
         if (index === -1) {
             return
@@ -41,9 +45,7 @@ export default function createLinkContextManager(links, { contextIdPrefix, asCon
     }
     
     function update(id, properties, keepExistingProperties = true) {
-        const index = links.findIndex((link) => {
-            return link.id === id;
-        });
+        const index = findIndexOf(id);
         
         // does not exist
         if (index === -1) {
@@ -64,7 +66,7 @@ export default function createLinkContextManager(links, { contextIdPrefix, asCon
             return;
         }
         
-        let link = {
+        const link = {
             // keep existing properties
             ...(keepExistingProperties ? links[index] : {}),
             ...properties,
