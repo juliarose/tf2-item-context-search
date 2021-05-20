@@ -219,18 +219,23 @@ export default function processItemName(name, options) {
         hash.festivized = true;
     }
     
-    const hashKeys = {
+    const hashKeys = [
         // begin by processing quality
-        qualities: 'quality',
+        ['qualities', 'quality'],
         // then killstreak...
-        killstreak_tiers: 'killstreak_tier',
+        ['killstreak_tiers', 'killstreak_tier'],
         // and so on...
-        wears: 'wear',
-        particles: 'particle',
-        skins: 'skin'
-    };
+        ['wears', 'wear'],
+        ['particles', 'particle'],
+        // in some cases (unusual weapons on backpack.tf)
+        // the effect will appear before the killstreak tier,
+        // so check the killstreak tier, again
+        ['killstreak_tiers', 'killstreak_tier'],
+        ['skins', 'skin']
+    ];
     
-    for (let tableName in hashKeys) {
+    for (let i = 0; i < hashKeys.length; i++) {
+        const [tableName, hashKey] = hashKeys[i];
         const pattern = processRegExp(processors.patterns[tableName]);
         const match = name.match(pattern);
         
@@ -256,7 +261,6 @@ export default function processItemName(name, options) {
         
         // get the value
         const value = getValue(tableName, 'name', 'value', valueName);
-        const hashKey = hashKeys[tableName];
         
         // since the input value for getting the value was not case sensitive
         if (ignoreCase) {

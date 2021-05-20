@@ -1,6 +1,6 @@
 {
   "name": "tf2-item-context-search",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "Browser extension to add context menus to search for TF2 items.",
   "babel": {

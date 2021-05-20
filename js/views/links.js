@@ -110,7 +110,7 @@ const page = {
     page.sample.tryNameInput.addEventListener('keyup', submitSearch);
     page.sample.tryUrlInput.addEventListener('keyup', submitSearch);
     
-    // delegate keyup to forms
+    // delegate keyup to link forms
     page.forms.addEventListener('keyup', async (e) => {
         // not a field input
         if (!e.target.matches('.field input')) {
@@ -123,6 +123,7 @@ const page = {
             return;
         }
         
+        // is a url element
         if (e.target.name === 'url') {
             // set the "Try URL" to the value of this input
             page.sample.tryUrlInput.value = e.target.value;
@@ -133,12 +134,14 @@ const page = {
         const saveLinkEl = formEl.querySelector('.save-link');
         const linkid = getLinkID(formEl);
         
+        console.log(linkid);
+        
         try {
             // validated successfully
             const form = validatesFormEl(formEl);
             
             // validation passed - update the link
-            await (async function(linkid, form) {
+            await (async function() {
                 if (linkid) {
                     // this link already exists, auto-save this link
                     return saveLink(linkid, form);

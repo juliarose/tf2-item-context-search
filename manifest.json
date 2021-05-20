@@ -2,8 +2,8 @@
   "manifest_version": 2,
   "name": "TF2 Item Context Search",
   "description": "Provides context menus to search for item stats on various sites.",
-  "version": "1.0.0",
-  "version_name": "1.0",
+  "version": "1.0.1",
+  "version_name": "1.0.1",
   "icons": {
     "16": "images/icon16.png",
     "48": "images/icon48.png",
