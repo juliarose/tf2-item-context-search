@@ -134,8 +134,6 @@ const page = {
         const saveLinkEl = formEl.querySelector('.save-link');
         const linkid = getLinkID(formEl);
         
-        console.log(linkid);
-        
         try {
             // validated successfully
             const form = validatesFormEl(formEl);
