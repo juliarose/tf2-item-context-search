@@ -1,5 +1,6 @@
 import createSchemaSearchIndex from './createSchemaSearchIndex.js';
 import { escapeRegExp } from '../utils.js';
+import EQuality from '../enums/EQuality.js';
 
 // interface for processing item hashes
 export default function createItemProcessors(recordIndex) {
@@ -33,6 +34,8 @@ export default function createItemProcessors(recordIndex) {
             hash.killstreak_tier_name,
             hash.australium && 'Australium',
             hash.skin_name,
+            // skins have a pipe between the skin name and the item name
+            hash.skin_name && '|',
             hash.item_name,
             (
                 hash.wear_name ?
@@ -106,11 +109,11 @@ export default function createItemProcessors(recordIndex) {
     }
     
     function getQualityName(hash) {
-        if (hash.particle && hash.quality === 15) {
+        if (hash.particle && hash.quality === EQuality['Decorated Weapon']) {
             // unusual weapon
             return 'Unusual';
-        } else if (hash.quality_name === 'Unique') {
-            // do not display "Unique in names"
+        } else if (hash.quality === EQuality.Unique) {
+            // do not display "Unique" in names
             return null;
         }
         
@@ -119,7 +122,7 @@ export default function createItemProcessors(recordIndex) {
 
     function getProperName(hash) {
         // must be unique
-        if (hash.quality !== 6) {
+        if (hash.quality !== EQuality['Unique']) {
             return;
         } else if (hash.killstreak_tier) {
             // no "The" in killstreak either
