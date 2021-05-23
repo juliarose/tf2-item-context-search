@@ -44,6 +44,7 @@ const defaultLinks = [
                 qsHash.quality = EQuality['Decorated Weapon'];
             }
             
+            // converts truthy values to 1 and falsy values to -1
             const valueConverter = createBooleanValueConverter(1, -1);
             const qs = qsMapToQuery(qsHash, qsMap, valueConverter);
             
