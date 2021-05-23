@@ -1,5 +1,3 @@
-'use strict';
-
 import { db } from './db.js';
 import { sendMessage } from './browser.js';
 
@@ -17,7 +15,7 @@ export async function saveLink(id, details) {
     async function addLink(details) {
         const count = await getLinksCount();
         
-        if (count >= MAX_LINKS) {
+        if (count > MAX_LINKS) {
             throw new Error(`Maximum of ${MAX_LINKS} links allowed`);
         }
         

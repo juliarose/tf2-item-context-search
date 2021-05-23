@@ -122,12 +122,12 @@ const defaultLinks = [
         id: 'steam-market',
         title: 'View on Steam Market',
         generator(hash) {
+            const url = `https://steamcommunity.com/market/listings/440/${encode(hash.market_name)}`;
             const filter = (function() {
                 if (hash.particle_name !== undefined) {
                     return encode(`"★ Unusual Effect: ${hash.particle_name}"`);
                 }
             }());
-            const url = `https://steamcommunity.com/market/listings/440/${encode(hash.market_name)}`;
             
             if (filter === undefined) {
                 return url;
