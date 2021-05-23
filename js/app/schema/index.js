@@ -56,6 +56,7 @@ export default async function createSchema(options = {}) {
                 // the order matters here
                 // in a search "Australium" is more important than "Australium Gold"
                 // and will appear first
+                // creates { index: 'australium', value: 'Australium' }
                 asIndex('australium')('Australium'),
                 asIndex('strange')('Strange'),
                 ...craftableNames.map(asIndex('craftable')),
