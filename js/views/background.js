@@ -79,7 +79,7 @@ import createLinkContextManager from '../app/state/links.contexts.js';
         }
     });
     
-    // this will force the proper indexes to be built for parsing names
+    // this will force the proper indexes to be built for parsing names so that they're ready when needed
     schema.processName('Purple Energy Wet Works', { ignoreCase: true });
     
     // initialize contexts

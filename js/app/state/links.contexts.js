@@ -25,6 +25,7 @@ export default function createLinkContextManager(links, { contextIdPrefix, asCon
         contextState.add(context);
     }
     
+    // finds the index of a link for splicing/updating array elements
     function findIndexOf(id) {
         return links.findIndex((link) => {
             return link.id === id;
@@ -95,6 +96,7 @@ export default function createLinkContextManager(links, { contextIdPrefix, asCon
     
     // updates the state for each link
     function updateState(message) {
+        // no function for updating state of contexts
         if (!stateUpdater) {
             return;
         }
@@ -115,6 +117,7 @@ export default function createLinkContextManager(links, { contextIdPrefix, asCon
     }
     
     async function addToContext() {
+        // map each link to context properties then add it to the context state
         return Promise.all(links.map(toContext).map(contextState.add));
     }
     

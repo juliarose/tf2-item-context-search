@@ -1,5 +1,6 @@
 import createCompoundIndex from './createCompoundIndex.js';
 import getCaretPosition from './getCaretPosition.js';
+
 /**
  * A number, or a string containing a number.
  * @typedef {object} SearchTerm
