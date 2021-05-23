@@ -67,7 +67,7 @@ export default async function(chrome) {
             
             if (response) {
                 // we don't really do anything with this, but we can
-                // the processed hash is in the response
+                // the processed hash is in the response as "response.hash"
             } else {
                 
             }

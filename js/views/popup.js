@@ -119,7 +119,7 @@ const page = {
         
         page.itemSearchResults.innerHTML = '';
         clearTimeout(nameSaverTimer);
-        nameSaverTimer = setTimeout(() => config.set('popup_name', value), 80);
+        nameSaverTimer = setTimeout(() => config.set('popup_name', value), 200);
         
         if (!value) {
             fieldEl.classList.remove('error');
