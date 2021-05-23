@@ -469,7 +469,7 @@ export default function processItemName(name, options) {
                     };
                     
                     // get the correct kit
-                    if (killstreakTierDefindexMap[hash.killstreak_tier]) {
+                    if (killstreakTierDefindexMap[hash.killstreak_tier] !== undefined) {
                         hash.output_defindex = killstreakTierDefindexMap[hash.killstreak_tier];
                     }
                 } else if (isChemistrySet) {
