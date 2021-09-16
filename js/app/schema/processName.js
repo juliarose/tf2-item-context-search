@@ -683,7 +683,7 @@ export default function processItemName(name, options) {
     }
     
     if (hash.quality === undefined) {
-        if (hash.skin_name !== undefined) {
+        if (hash.wear !== undefined) {
             hash.quality_name = 'Decorated Weapon';
             hash.quality = 15;
         } else {
