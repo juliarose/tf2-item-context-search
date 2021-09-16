@@ -27,7 +27,21 @@ export default async function loadSchema(options = {}) {
     
     // file either does not exist or it is outdated
     // fetch from url
-    const response = await fetch(source_url);
+    let response;
+    
+    try {
+       response = await fetch(source_url); 
+    } catch (e) {
+        // unable to fetch
+        // no file, nothing can be done
+        if (!file) {
+            throw new Error('Unable to load schema data');
+        }
+        
+        // just use the file we have, if the fetch failed
+        return file.blob.text().then(asJSON);
+    }
+    
     // read as json
     const json = await response.json();
     // we want to store it as a json blob

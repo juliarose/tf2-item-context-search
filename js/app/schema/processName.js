@@ -55,7 +55,7 @@ export default function processItemName(name, options) {
         // remove star character
         .replace(/\u2605/, '')
         // remove "Non-Tradable"
-        .replace(/^Non\-Tradable /, '')
+        .replace(/Non\-Tradable /, '')
         // remove "Unknown war paint"
         .replace(/Unknown warpaint \d+/, '')
         // no paint in name
@@ -682,10 +682,15 @@ export default function processItemName(name, options) {
         }
     }
     
-    // defaults to unique
     if (hash.quality === undefined) {
-        hash.quality_name = 'Unique';
-        hash.quality = 6;
+        if (hash.skin_name !== undefined) {
+            hash.quality_name = 'Decorated Weapon';
+            hash.quality = 15;
+        } else {
+            // defaults to unique
+            hash.quality_name = 'Unique';
+            hash.quality = 6;
+        }
     }
     
     // of course

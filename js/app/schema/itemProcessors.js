@@ -5,10 +5,6 @@ import EQuality from '../enums/EQuality.js';
 // interface for processing item hashes
 export default function createItemProcessors(recordIndex) {
     function getSKU(hash) {
-        const notNull = (value) => {
-            return value !== null;
-        };
-        
         return [
             hash.defindex,
             hash.quality,
@@ -21,11 +17,11 @@ export default function createItemProcessors(recordIndex) {
             hash.skin ? `pk${hash.skin}` : null,
             hash.killstreak_tier ? `kt-${hash.killstreak_tier}` : null,
             hash.craft_number ? `n${hash.craft_number}` : null,
-            hash.target_defindex ? `td-${hash.target_defindex}` : null,
             hash.crate_number ? `c${hash.crate_number}` : null,
-            hash.output_defindex ? `od-${hash.output_defindex}` : null,
-            hash.output_quality ? `oq-${hash.output_quality}` : null
-        ].filter(notNull).join(';');
+            hash.target_defindex !== undefined ? `td-${hash.target_defindex}` : null,
+            hash.output_defindex !== undefined ? `od-${hash.output_defindex}` : null,
+            hash.output_quality !== undefined ? `oq-${hash.output_quality}` : null
+        ].filter(value => value !== null).join(';');
     }
     
     function getStatsName(hash) {
