@@ -1,0 +1,67 @@
+{
+    "manifest_version": 2,
+    "name": "TF2 Item Context Search",
+    "description": "Provides context menus to search for item stats on various sites.",
+    "version": "1.0.2",
+    "icons": {
+      "16": "images/icon16.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
+    },
+    "browser_action": {
+      "default_icon": "images/icon.png",
+      "default_popup": "views/popup.html"
+    },
+    "browser_specific_settings": {
+      "gecko": {
+        "id": "tf2.context.menus@backpack.tf"
+      }
+    },
+    "background": {
+      "page": "views/background.html"
+    },
+    "web_accessible_resources": [
+      "js/content/injects/*.js",
+      "js/app/config.js",
+      "js/app/storage.js",
+      "js/app/browser.js"
+    ],
+    "permissions": [
+      "*://*.tf/*",
+      "*://*.store/*",
+      "*://*.trade/*",
+      "*://*.cash/*",
+      "*://*.deals/*",
+      "*://*.gg/*",
+      "*://steamcommunity.com/*",
+      "*://stntrading.eu/*",
+      "activeTab",
+      "contextMenus",
+      "storage"
+    ],
+    "content_scripts": [
+      {
+        "matches": [
+          "*://*.tf/*",
+          "*://*.store/*",
+          "*://*.trade/*",
+          "*://*.cash/*",
+          "*://*.deals/*",
+          "*://*.gg/*",
+          "*://steamcommunity.com/*",
+          "*://stntrading.eu/*"
+        ],
+        "js": [
+          "js/content/all_urls.js"
+        ],
+        "css": [
+          "css/content/all_urls.css"
+        ],
+        "run_at": "document_end"
+      }
+    ],
+    "optional_permissions": [
+      "<all_urls>"
+    ]
+  }
+  

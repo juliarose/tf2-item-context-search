@@ -1,12 +1,12 @@
 // browser utilities
 
-const browser = chrome;
+export const browser = chrome || browser;
 // https://developer.chrome.com/docs/extensions/reference/tabs/
 export const tabs = browser.tabs;
 // https://developer.chrome.com/docs/extensions/reference/runtime/#event-onMessage
 export const onMessage = browser.runtime.onMessage;
 // https://developer.chrome.com/docs/extensions/reference/contextMenus
-export const contextMenus = browser.contextMenus;
+export const contextMenus = browser.menus || browser.contextMenus;
 // https://developer.chrome.com/docs/extensions/reference/storage/
 export const storage = (
     browser.storage ? 
@@ -35,5 +35,5 @@ export async function sendMessage(details) {
  * @returns {string} Absolute extension URL.
  */
 export function getExtensionURL(url) {
-    return browser.extension.getURL(url);
+    return browser.runtime.getURL(url);
 }

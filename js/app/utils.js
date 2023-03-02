@@ -43,7 +43,7 @@ export function isValidURL(str) {
         // will throw if url is not valid
         const url = new URL(str);
         
-        return /^https?\:$/.test(url.protocol);
+        return /^(https?|chrome\-extension)\:$/.test(url.protocol);
     } catch (e) {
         return false;  
     }

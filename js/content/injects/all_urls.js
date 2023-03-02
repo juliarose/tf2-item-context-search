@@ -1,11 +1,12 @@
 import config from '/js/app/config.js';
+import { browser } from '/js/app/browser.js';
 
 export default async function(chrome) {
     // sends a message to background script
     async function sendMessage(details) {
-       return new Promise((resolve) => {
-           chrome.runtime.sendMessage(details, resolve);
-       });
+        return new Promise((resolve) => {
+            browser.runtime.sendMessage(details, resolve);
+        });
     }
     
     // selects text for node
