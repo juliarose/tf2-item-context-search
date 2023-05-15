@@ -6,6 +6,8 @@ TF2 Item Context Search is a browser extension for displaying right-click contex
 
 To use this extension, please install it from the [Chrome Web Store](https://chrome.google.com/webstore/detail/tf2-item-context-search/aojkfndbibilkfffeiiajakhecfakkcb).
 
+Also [available for Firefox](https://addons.mozilla.org/en-US/firefox/addon/tf2-item-context-search/).
+
 ## Features
 
 -   Provides right-click context menus for the following resources:
